@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서양미술사 연표 — 미술의 흐름</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  /* ---------- Timeline rail ---------- */
+  .rail-wrap {
+    overflow-x: auto;
+    padding: 8px 4px 28px;
+    scrollbar-width: thin;
+  }
+  .rail-wrap::-webkit-scrollbar { height: 8px; }
+  .rail-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+
+  .rail {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    min-width: max-content;
+    padding: 40px 12px 4px;
+  }
+  .rail::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background: var(--border);
+  }
+
+  .era-card {
+    flex: 0 0 260px;
+    scroll-snap-align: start;
+  }
+  .era-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--brand-strong);
+    margin: 0 0 14px 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .era-card .card {
+    padding: 22px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .era-thumb {
+    height: 64px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: .02em;
+    color: var(--on-brand);
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-strong) 100%);
+    margin-bottom: 16px;
+  }
+
+  .era-period {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: 6px;
+  }
+  .era-card h3 { font-size: 18px; margin: 0 0 2px; }
+  .era-card .era-name-orig { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
+  .era-card .era-years { font-size: 13px; font-weight: 700; color: var(--brand-strong); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+  .era-card .era-desc { font-size: 13.5px; color: var(--muted); margin: 0 0 14px; flex: 1; }
+
+  .artist-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .artist-chip {
+    font-size: 11.5px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .era-card .card-link { margin-top: auto; }
+
+  @media (max-width: 767px) {
+    .era-card { flex-basis: 220px; }
+    .era-thumb { height: 52px; font-size: 13px; }
+  }
+
+  /* ---------- Legend / filter row ---------- */
+  .legend-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .legend-hint { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .legend-hint .arrow { color: var(--brand-strong); font-weight: 700; }
+
+  /* ---------- Source note ---------- */
+  .source-note {
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    padding-top: 24px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .source-note strong { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="dot"></span>미술의 흐름</a>
+    <nav class="nav-links">
+      <a href="timeline.html" aria-current="page">미술사</a>
+      <a href="artists.html">미술가</a>
+      <a href="movements.html">종파</a>
+      <a href="techniques.html">기법</a>
+      <a href="quiz.html">퀴즈</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">🌙</button>
+      <a class="btn btn-primary" href="quiz.html">퀴즈 풀기</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="eyebrow">서양미술사 · 가로 스크롤 연표</div>
+      <h1>르네상스에서 입체주의까지, 흐름으로 보는 서양미술사</h1>
+      <p>좌우로 스크롤하며 시대순으로 사조를 살펴보세요. 각 카드를 누르면 해당 사조가 왜 생겨났는지, 대표 화가는 누구인지 자세히 볼 수 있습니다.</p>
+    </div>
+  </div>
+
+  <section style="padding-top:48px;">
+    <div class="wrap">
+      <div class="legend-row">
+        <div class="legend-hint"><span class="arrow">←→</span> 좌우로 스크롤하여 10개 사조 전체 보기</div>
+        <div class="legend-hint">c. 1400 <span class="arrow">→</span> c. 1920</div>
+      </div>
+
+      <div class="rail-wrap">
+        <div class="rail">
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#renaissance">
+              <div class="era-thumb">RN</div>
+              <div class="era-period">근세 · 15~16세기</div>
+              <h3>르네상스</h3>
+              <div class="era-name-orig">Renaissance</div>
+              <div class="era-years">c. 1400 – 1600</div>
+              <p class="era-desc">중세 신 중심 세계관에서 벗어나 인간과 고전 그리스·로마 문화를 재발견하며 원근법·해부학 등 사실적 재현 기법이 발달했다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">레오나르도 다빈치 (1452–1519)</span>
+                <span class="artist-chip">미켈란젤로 (1475–1564)</span>
+                <span class="artist-chip">라파엘로 (1483–1520)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#baroque">
+              <div class="era-thumb">BQ</div>
+              <div class="era-period">근세 · 17세기</div>
+              <h3>바로크</h3>
+              <div class="era-name-orig">Baroque</div>
+              <div class="era-years">c. 1600 – 1750</div>
+              <p class="era-desc">종교개혁 이후 가톨릭 교회와 절대왕정이 웅장함과 감정적 호소력을 강조하며, 강한 명암 대비(키아로스쿠로)와 역동적 구도가 특징이다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">카라바조 (1571–1610)</span>
+                <span class="artist-chip">렘브란트 (1606–1669)</span>
+                <span class="artist-chip">베르메르 (1632–1675)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#rococo">
+              <div class="era-thumb">RC</div>
+              <div class="era-period">근세 · 18세기</div>
+              <h3>로코코</h3>
+              <div class="era-name-orig">Rococo</div>
+              <div class="era-years">c. 1700 – 1780</div>
+              <p class="era-desc">프랑스 귀족 사교문화를 배경으로 바로크의 무거움 대신 가볍고 장식적인 곡선, 파스텔 색조, 유희적 주제를 선호했다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">바토 (1684–1721)</span>
+                <span class="artist-chip">부셰 (1703–1770)</span>
+                <span class="artist-chip">프라고나르 (1732–1806)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#neoclassicism">
+              <div class="era-thumb">NC</div>
+              <div class="era-period">근대 · 18세기 후반</div>
+              <h3>신고전주의</h3>
+              <div class="era-name-orig">Neoclassicism</div>
+              <div class="era-years">c. 1750 – 1850</div>
+              <p class="era-desc">계몽주의와 폼페이 유적 발굴 열풍 속에 로코코의 향락성에 반발해 고대 그리스·로마의 이성적 질서와 도덕성을 다시 이상으로 삼았다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">다비드 (1748–1825)</span>
+                <span class="artist-chip">앵그르 (1780–1867)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#romanticism">
+              <div class="era-thumb">RM</div>
+              <div class="era-period">근대 · 19세기 초</div>
+              <h3>낭만주의</h3>
+              <div class="era-name-orig">Romanticism</div>
+              <div class="era-years">c. 1780 – 1850</div>
+              <p class="era-desc">산업화와 신고전주의의 냉정한 이성 중심주의에 반발해 개인의 감정, 상상력, 자연의 숭고함과 이국적 소재를 중시했다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">고야 (1746–1828)</span>
+                <span class="artist-chip">제리코 (1791–1824)</span>
+                <span class="artist-chip">들라크루아 (1798–1863)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#realism">
+              <div class="era-thumb">RL</div>
+              <div class="era-period">근대 · 19세기 중반</div>
+              <h3>사실주의</h3>
+              <div class="era-name-orig">Realism</div>
+              <div class="era-years">c. 1840 – 1880</div>
+              <p class="era-desc">1848년 혁명 전후 사회 현실에 대한 관심이 커지며, 신화·역사 속 이상화된 소재 대신 농민·노동자 등 평범한 일상을 있는 그대로 그렸다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">쿠르베 (1819–1877)</span>
+                <span class="artist-chip">밀레 (1814–1875)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#impressionism">
+              <div class="era-thumb">IM</div>
+              <div class="era-period">근대 · 19세기 후반</div>
+              <h3>인상주의</h3>
+              <div class="era-name-orig">Impressionism</div>
+              <div class="era-years">c. 1860 – 1890</div>
+              <p class="era-desc">관학적 아카데미 화풍에 대한 반발과 튜브 물감·사진기의 등장으로, 빛과 순간의 인상을 야외에서 빠른 붓터치로 포착하고자 했다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">모네 (1840–1926)</span>
+                <span class="artist-chip">르누아르 (1841–1919)</span>
+                <span class="artist-chip">드가 (1834–1917)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#post-impressionism">
+              <div class="era-thumb">PI</div>
+              <div class="era-period">근대 · 19세기 말</div>
+              <h3>후기 인상주의</h3>
+              <div class="era-name-orig">Post-Impressionism</div>
+              <div class="era-years">c. 1880 – 1905</div>
+              <p class="era-desc">인상주의가 순간의 빛에 집중한 것에서 나아가, 각자의 구조·감정·상징을 화면에 담으려는 개별적인 실험이 다양하게 갈라졌다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">반 고흐 (1853–1890)</span>
+                <span class="artist-chip">세잔 (1839–1906)</span>
+                <span class="artist-chip">고갱 (1848–1903)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#fauvism">
+              <div class="era-thumb">FV</div>
+              <div class="era-period">현대 · 20세기 초</div>
+              <h3>야수주의</h3>
+              <div class="era-name-orig">Fauvism</div>
+              <div class="era-years">c. 1900 – 1910</div>
+              <p class="era-desc">후기 인상주의의 색채 실험을 이어받아, 사물의 고유색에서 해방된 강렬하고 비자연적인 원색을 감정 표현의 수단으로 사용했다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">마티스 (1869–1954)</span>
+                <span class="artist-chip">드랭 (1880–1954)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+          <div class="era-card">
+            <div class="era-dot"></div>
+            <a class="card" href="movements.html#cubism">
+              <div class="era-thumb">CB</div>
+              <div class="era-period">현대 · 20세기 초</div>
+              <h3>입체주의</h3>
+              <div class="era-name-orig">Cubism</div>
+              <div class="era-years">c. 1907 – 1920</div>
+              <p class="era-desc">세잔의 조형적 실험과 아프리카 조각의 영향 속에, 하나의 시점 대신 여러 시점에서 본 형태를 동시에 화면에 해체·재구성했다.</p>
+              <div class="artist-chips">
+                <span class="artist-chip">피카소 (1881–1973)</span>
+                <span class="artist-chip">브라크 (1882–1963)</span>
+              </div>
+              <span class="card-link">사조 자세히 보기 →</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="source-note">
+        <strong>연도·출처 안내.</strong> 위 연도는 학계 통설을 기준으로 한 대략적 구간(c.)이며, 사조 간 경계와 지속 기간에는 이견이 있을 수 있습니다.
+        생몰년·사조 구분은 위키미디어 커먼즈, 메트로폴리탄 미술관 Heilbrunn Timeline of Art History 등 공개 자료를 교차 검증해 작성한 파일럿 콘텐츠이며, 사조·화가 상세 페이지가 추가되는 대로 개별 출처 링크를 페이지별로 명시할 예정입니다.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>미술의 흐름</h4>
+        <p>미술사·미술가·사조·기법을 연표와 연역도로 잇는 학습 웹앱입니다. 모든 정보는 출처를 명시합니다.</p>
+      </div>
+      <div class="footer-col">
+        <h4>탐색</h4>
+        <a href="timeline.html">미술사 연표</a>
+        <a href="artists.html">미술가</a>
+        <a href="movements.html">종파(사조)</a>
+        <a href="techniques.html">기법</a>
+      </div>
+      <div class="footer-col">
+        <h4>학습</h4>
+        <a href="quiz.html">퀴즈 풀기</a>
+        <a href="#">오답노트</a>
+        <a href="#">비교·이론 (예정)</a>
+      </div>
+      <div class="footer-col">
+        <h4>정보</h4>
+        <a href="#">이미지·자료 출처 정책</a>
+        <a href="#">콘텐츠 정확성 검증 기준</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 미술의 흐름. 모든 이미지·정보는 출처를 명시합니다.</span>
+      <span><a href="#">이용 안내</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/theme.js" defer></script>
+
+</body>
+</html>
