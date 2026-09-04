@@ -82,6 +82,33 @@ img { max-width: 100%; display: block; }
   .rise-in { animation: none; }
 }
 
+/* ---------- Cursor sparkles (dark mode only, see assets/sparkle.js) ---------- */
+.sparkle-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  background: var(--brand);
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+  box-shadow: 0 0 5px 1px color-mix(in srgb, var(--brand) 55%, transparent);
+  opacity: 0;
+  animation: sparkle-pop .9s ease-out forwards;
+  will-change: transform, opacity;
+}
+@keyframes sparkle-pop {
+  0% { opacity: 0; transform: scale(0) rotate(0deg); }
+  18% { opacity: .85; transform: scale(1) rotate(25deg); }
+  100% { opacity: 0; transform: scale(.35) translateY(-16px) rotate(55deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sparkle { display: none; }
+}
+
 .wrap {
   max-width: 1140px;
   margin: 0 auto;
