@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사조(종파) — 미술의 흐름</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  /* ---------- Influence chain (연역도) ---------- */
+  .chain-wrap { overflow-x: auto; padding-bottom: 8px; }
+  .chain {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    min-width: max-content;
+    padding: 4px 2px 12px;
+  }
+  .chain-node {
+    flex: 0 0 auto;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 13.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .chain-node:hover { border-color: var(--brand); color: var(--brand-strong); }
+  .chain-arrow {
+    flex: 0 0 auto;
+    color: var(--muted);
+    padding: 0 10px;
+    font-size: 15px;
+  }
+
+  /* ---------- Jump pills ---------- */
+  .jump-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .jump-pill {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .jump-pill:hover { color: var(--brand-strong); border-color: var(--brand); }
+
+  /* ---------- Movement block ---------- */
+  .movement-block { padding: 64px 24px; border-bottom: 1px solid var(--border); scroll-margin-top: 76px; }
+  .movement-block.alt { background: var(--surface-alt); }
+  .movement-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 860px) { .movement-grid { grid-template-columns: 1fr; } }
+
+  .movement-index {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--brand-strong);
+    background: var(--badge-bg);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .movement-main h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 4px;
+  }
+  .movement-main h2 .orig {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-left: 10px;
+  }
+  .movement-main .years {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--brand-strong);
+    margin: 0 0 24px;
+  }
+  .movement-main h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    margin: 22px 0 8px;
+  }
+  .movement-main p { font-size: 15px; color: var(--ink); margin: 0; }
+  .movement-main ul { margin: 0; padding-left: 18px; font-size: 15px; }
+  .movement-main ul li { margin-bottom: 6px; }
+
+  .artist-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .artist-chip {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .movement-block.alt .artist-chip { background: var(--bg); }
+
+  /* ---------- Flow (prev/next) side card ---------- */
+  .flow-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    height: fit-content;
+    box-shadow: var(--shadow);
+  }
+  .movement-block.alt .flow-card { background: var(--bg); }
+  .flow-label { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 6px; }
+  .flow-target { font-size: 15px; font-weight: 700; margin-bottom: 18px; }
+  .flow-target a { color: var(--link-accent); }
+  .flow-target a:hover { text-decoration: underline; }
+  .flow-target.muted { color: var(--muted); font-weight: 500; font-size: 13.5px; }
+  .flow-divider { height: 1px; background: var(--border); margin: 4px 0 18px; }
+
+  .source-note {
+    max-width: 760px;
+    margin: 48px auto 0;
+    padding: 20px 24px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="dot"></span>미술의 흐름</a>
+    <nav class="nav-links">
+      <a href="timeline.html">미술사</a>
+      <a href="artists.html">미술가</a>
+      <a href="movements.html" aria-current="page">종파</a>
+      <a href="techniques.html">기법</a>
+      <a href="quiz.html">퀴즈</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">🌙</button>
+      <a class="btn btn-primary" href="quiz.html">퀴즈 풀기</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="eyebrow">서양미술사 · 사조(종파) 10선</div>
+      <h1>사조는 왜, 어떤 흐름으로 이어졌을까</h1>
+      <p>각 사조가 등장한 시대적·사회적 배경과 이전·다음 사조와의 관계(연역도)를 함께 살펴봅니다.</p>
+
+      <div class="chain-wrap">
+        <div class="chain">
+          <a class="chain-node" href="#renaissance">르네상스</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#baroque">바로크</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#rococo">로코코</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#neoclassicism">신고전주의</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#romanticism">낭만주의</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#realism">사실주의</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#impressionism">인상주의</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#post-impressionism">후기 인상주의</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#fauvism">야수주의</a><span class="chain-arrow">→</span>
+          <a class="chain-node" href="#cubism">입체주의</a>
+        </div>
+      </div>
+
+      <div class="jump-row">
+        <a class="jump-pill" href="#renaissance">1. 르네상스</a>
+        <a class="jump-pill" href="#baroque">2. 바로크</a>
+        <a class="jump-pill" href="#rococo">3. 로코코</a>
+        <a class="jump-pill" href="#neoclassicism">4. 신고전주의</a>
+        <a class="jump-pill" href="#romanticism">5. 낭만주의</a>
+        <a class="jump-pill" href="#realism">6. 사실주의</a>
+        <a class="jump-pill" href="#impressionism">7. 인상주의</a>
+        <a class="jump-pill" href="#post-impressionism">8. 후기 인상주의</a>
+        <a class="jump-pill" href="#fauvism">9. 야수주의</a>
+        <a class="jump-pill" href="#cubism">10. 입체주의</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 르네상스 -->
+  <section class="movement-block" id="renaissance">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">01 / 10</span>
+          <h2>르네상스 <span class="orig">Renaissance</span></h2>
+          <p class="years">c. 1400 – 1600</p>
+          <h3>배경</h3>
+          <p>중세의 교회 중심 세계관이 흔들리는 가운데, 이탈리아 도시국가들의 상업적 번영과 인문주의 사상이 결합해 인간과 고전 그리스·로마 문화에 대한 관심이 되살아났습니다. 원근법과 해부학 등 과학적 관찰이 회화에 본격적으로 도입된 시기입니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>선원근법을 이용한 공간감 표현</li>
+            <li>인체 비례와 해부학적 사실성</li>
+            <li>고전 신화·성서를 소재로 한 대형 벽화·제단화</li>
+            <li>메디치 가문 등 부유한 후원자 중심의 제작 방식</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">레오나르도 다빈치 (1452–1519)</span>
+            <span class="artist-chip">미켈란젤로 (1475–1564)</span>
+            <span class="artist-chip">라파엘로 (1483–1520)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target muted">이 페이지 범위 이전 (중세 미술)</div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#baroque">바로크 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 바로크 -->
+  <section class="movement-block alt" id="baroque">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">02 / 10</span>
+          <h2>바로크 <span class="orig">Baroque</span></h2>
+          <p class="years">c. 1600 – 1750</p>
+          <h3>배경</h3>
+          <p>종교개혁에 대응한 가톨릭 교회(반종교개혁)는 신자들의 감정에 직접 호소하는 극적이고 장엄한 이미지를 필요로 했습니다. 동시에 절대왕정의 궁정 문화도 권력을 과시하는 화려하고 웅장한 예술을 적극적으로 후원했습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>강한 명암 대비(키아로스쿠로)</li>
+            <li>극적인 움직임과 감정 표현</li>
+            <li>화려한 장식성과 웅장한 규모</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">카라바조 (1571–1610)</span>
+            <span class="artist-chip">렘브란트 (1606–1669)</span>
+            <span class="artist-chip">베르메르 (1632–1675)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#renaissance">← 르네상스</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#rococo">로코코 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 로코코 -->
+  <section class="movement-block" id="rococo">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">03 / 10</span>
+          <h2>로코코 <span class="orig">Rococo</span></h2>
+          <p class="years">c. 1700 – 1780</p>
+          <h3>배경</h3>
+          <p>루이 14세 사후 절대왕정의 위엄 대신, 귀족 살롱 문화의 사적이고 경쾌한 취향이 부상했습니다. 바로크의 웅장함 대신 섬세하고 장식적인 스타일이 상류층 사이에서 유행했습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>파스텔톤의 밝고 부드러운 색채</li>
+            <li>곡선적이고 화려한 장식</li>
+            <li>연애·유희 등 세속적이고 가벼운 주제</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">바토 (1684–1721)</span>
+            <span class="artist-chip">부셰 (1703–1770)</span>
+            <span class="artist-chip">프라고나르 (1732–1806)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#baroque">← 바로크</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#neoclassicism">신고전주의 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 신고전주의 -->
+  <section class="movement-block alt" id="neoclassicism">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">04 / 10</span>
+          <h2>신고전주의 <span class="orig">Neoclassicism</span></h2>
+          <p class="years">c. 1750 – 1850</p>
+          <h3>배경</h3>
+          <p>폼페이·헤르쿨라네움 유적 발굴로 고대에 대한 관심이 재점화되고, 로코코의 경박함에 대한 반발과 계몽주의의 이성 중심 사상, 프랑스 혁명의 시민적 덕목이 결합해 절제되고 명료한 고전 양식이 부활했습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>명확한 윤곽선과 정돈된 구도</li>
+            <li>절제된 색채와 균형 잡힌 형태</li>
+            <li>영웅적·도덕적 역사 주제</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">다비드 (1748–1825)</span>
+            <span class="artist-chip">앵그르 (1780–1867)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#rococo">← 로코코</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#romanticism">낭만주의 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 낭만주의 -->
+  <section class="movement-block" id="romanticism">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">05 / 10</span>
+          <h2>낭만주의 <span class="orig">Romanticism</span></h2>
+          <p class="years">c. 1780 – 1850</p>
+          <h3>배경</h3>
+          <p>신고전주의의 이성과 규범 중심 태도에 반발하여, 개인의 감정과 상상력, 자연의 숭고함을 강조하는 흐름이 나타났습니다. 나폴레옹 전쟁 등 격동의 시대상도 극적인 소재로 즐겨 다뤄졌습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>강렬한 색채와 자유로운 붓터치</li>
+            <li>극적인 구도와 감정의 격렬한 표현</li>
+            <li>이국적·초자연적 소재에 대한 관심</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">고야 (1746–1828)</span>
+            <span class="artist-chip">제리코 (1791–1824)</span>
+            <span class="artist-chip">들라크루아 (1798–1863)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#neoclassicism">← 신고전주의</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#realism">사실주의 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 사실주의 -->
+  <section class="movement-block alt" id="realism">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">06 / 10</span>
+          <h2>사실주의 <span class="orig">Realism</span></h2>
+          <p class="years">c. 1840 – 1880</p>
+          <h3>배경</h3>
+          <p>1848년 혁명을 전후해 사회 현실에 대한 관심이 커지면서, 신화나 역사 대신 노동자·농민 등 평범한 사람들의 삶을 미화 없이 그리려는 움직임이 일어났습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>일상적이고 평범한 소재 선택</li>
+            <li>사회 비판적 시선</li>
+            <li>이상화하지 않은 사진에 가까운 관찰</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">쿠르베 (1819–1877)</span>
+            <span class="artist-chip">밀레 (1814–1875)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#romanticism">← 낭만주의</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#impressionism">인상주의 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 인상주의 -->
+  <section class="movement-block" id="impressionism">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">07 / 10</span>
+          <h2>인상주의 <span class="orig">Impressionism</span></h2>
+          <p class="years">c. 1860 – 1890</p>
+          <h3>배경</h3>
+          <p>아카데미 살롱의 엄격한 규범에 대한 반발과 함께, 튜브 물감·사진기 등 신기술이 등장하며 화가들이 야외에서 빛과 순간의 인상을 빠르게 포착하기 시작했습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>밝고 순수한 색채</li>
+            <li>짧고 빠른 붓터치</li>
+            <li>야외 사생(플레네르) 작업 방식</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">모네 (1840–1926)</span>
+            <span class="artist-chip">르누아르 (1841–1919)</span>
+            <span class="artist-chip">드가 (1834–1917)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#realism">← 사실주의</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#post-impressionism">후기 인상주의 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 후기 인상주의 -->
+  <section class="movement-block alt" id="post-impressionism">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">08 / 10</span>
+          <h2>후기 인상주의 <span class="orig">Post-Impressionism</span></h2>
+          <p class="years">c. 1880 – 1905</p>
+          <h3>배경</h3>
+          <p>인상주의의 순간적 인상 포착에 만족하지 않은 화가들이 형태·구조·감정 표현 등 자신만의 조형 언어를 탐구하면서, 하나의 유파라기보다 다양한 개별 화풍으로 갈라진 시기입니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>개인화된 색채·형태 실험</li>
+            <li>구조적이고 견고한 구성(세잔)</li>
+            <li>감정을 강조하는 표현적 붓터치(반 고흐)</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">반 고흐 (1853–1890)</span>
+            <span class="artist-chip">세잔 (1839–1906)</span>
+            <span class="artist-chip">고갱 (1848–1903)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#impressionism">← 인상주의</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#fauvism">야수주의 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. 야수주의 -->
+  <section class="movement-block" id="fauvism">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">09 / 10</span>
+          <h2>야수주의 <span class="orig">Fauvism</span></h2>
+          <p class="years">c. 1900 – 1910</p>
+          <h3>배경</h3>
+          <p>후기 인상주의의 색채 실험을 극단으로 밀어붙여, 사실적 색채 재현을 포기하고 강렬하고 비자연적인 원색을 감정 표현의 도구로 사용하기 시작했습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>강렬하고 대담한 원색 사용</li>
+            <li>단순화되고 왜곡된 형태</li>
+            <li>즉흥적이고 거친 붓터치</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">마티스 (1869–1954)</span>
+            <span class="artist-chip">드랭 (1880–1954)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#post-impressionism">← 후기 인상주의</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target"><a href="#cubism">입체주의 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. 입체주의 -->
+  <section class="movement-block alt" id="cubism">
+    <div class="wrap">
+      <div class="movement-grid">
+        <div class="movement-main">
+          <span class="movement-index">10 / 10</span>
+          <h2>입체주의 <span class="orig">Cubism</span></h2>
+          <p class="years">c. 1907 – 1920</p>
+          <h3>배경</h3>
+          <p>세잔의 구조적 형태 분석에서 출발해, 대상을 하나의 시점이 아닌 여러 시점에서 동시에 분해하고 재구성함으로써 전통적 원근법을 근본적으로 해체했습니다.</p>
+          <h3>특징</h3>
+          <ul>
+            <li>여러 시점을 한 화면에 결합하는 다시점 구성</li>
+            <li>대상을 기하학적으로 분해·재구성</li>
+            <li>콜라주 등 새로운 매체·기법의 도입</li>
+          </ul>
+          <h3>대표 화가</h3>
+          <div class="artist-chips">
+            <span class="artist-chip">피카소 (1881–1973)</span>
+            <span class="artist-chip">브라크 (1882–1963)</span>
+          </div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-label">이전 사조</div>
+          <div class="flow-target"><a href="#fauvism">← 야수주의</a></div>
+          <div class="flow-divider"></div>
+          <div class="flow-label">다음 사조</div>
+          <div class="flow-target muted">Phase 2에서 20세기 이후 사조로 계속</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <p class="source-note">
+      사조의 시작·종료 시점은 학자와 자료에 따라 견해가 다를 수 있어, 여기서는 일반적으로 통용되는(통설) 대략적인 연대를 사용했습니다.
+      배경 설명은 위키미디어 커먼즈, 메트로폴리탄 미술관의 Heilbrunn Timeline of Art History 등 공신력 있는 일반 자료를 참고해 요약했으며,
+      화가별 상세 페이지가 추가되는 대로 개별 출처 링크를 함께 제공할 예정입니다.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>미술의 흐름</h4>
+        <p>미술사·미술가·사조·기법을 연표와 연역도로 잇는 학습 웹앱입니다. 모든 정보는 출처를 명시합니다.</p>
+      </div>
+      <div class="footer-col">
+        <h4>탐색</h4>
+        <a href="timeline.html">미술사 연표</a>
+        <a href="artists.html">미술가</a>
+        <a href="movements.html">종파(사조)</a>
+        <a href="techniques.html">기법</a>
+      </div>
+      <div class="footer-col">
+        <h4>학습</h4>
+        <a href="quiz.html">퀴즈 풀기</a>
+        <a href="#">오답노트</a>
+        <a href="#">비교·이론 (예정)</a>
+      </div>
+      <div class="footer-col">
+        <h4>정보</h4>
+        <a href="#">이미지·자료 출처 정책</a>
+        <a href="#">콘텐츠 정확성 검증 기준</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 미술의 흐름. 모든 이미지·정보는 출처를 명시합니다.</span>
+      <span><a href="#">이용 안내</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/theme.js" defer></script>
+
+</body>
+</html>
