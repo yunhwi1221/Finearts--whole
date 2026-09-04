@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미술가 — 미술의 흐름</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .jump-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .jump-pill {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .jump-pill:hover { color: var(--brand-strong); border-color: var(--brand); }
+
+  .artist-section { padding: 56px 24px; border-bottom: 1px solid var(--border); scroll-margin-top: 76px; }
+  .artist-section.alt { background: var(--surface-alt); }
+
+  .artist-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .artist-section-head h2 { font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.02em; }
+  .artist-section-head h2 .orig { font-size: 14px; font-weight: 500; color: var(--muted); margin-left: 8px; }
+  .artist-section-head .movement-link { font-size: 13.5px; font-weight: 600; color: var(--link-accent); white-space: nowrap; }
+  .artist-section-head .movement-link:hover { text-decoration: underline; }
+
+  .artist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 1023px) { .artist-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .artist-grid { grid-template-columns: 1fr; } }
+
+  .artist-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .artist-section.alt .artist-card { background: var(--bg); }
+  .artist-card:hover { transform: translateY(-3px); border-color: var(--brand); }
+
+  .artist-card .nationality {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--badge-text);
+    background: var(--badge-bg);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .artist-card h3 { font-size: 17px; margin: 0 0 2px; font-weight: 700; }
+  .artist-card .years { font-size: 12.5px; color: var(--brand-strong); font-weight: 600; margin-bottom: 12px; }
+  .artist-card .style-desc { font-size: 14px; color: var(--ink); margin: 0 0 14px; }
+  .artist-card .works-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 6px; }
+  .artist-card .works-list { margin: 0; padding-left: 16px; font-size: 13px; color: var(--muted); }
+  .artist-card .works-list li { margin-bottom: 3px; }
+
+  .source-note {
+    max-width: 760px;
+    margin: 48px auto 0;
+    padding: 20px 24px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="dot"></span>미술의 흐름</a>
+    <nav class="nav-links">
+      <a href="timeline.html">미술사</a>
+      <a href="artists.html" aria-current="page">미술가</a>
+      <a href="movements.html">종파</a>
+      <a href="techniques.html">기법</a>
+      <a href="quiz.html">퀴즈</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">🌙</button>
+      <a class="btn btn-primary" href="quiz.html">퀴즈 풀기</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="eyebrow">서양미술사 · 미술가 26인</div>
+      <h1>사조를 만든 화가들을 만나보세요</h1>
+      <p>각 화가의 생몰년, 국적, 화풍의 핵심, 대표작을 사조별로 정리했습니다. 화가 이름을 통해 소속 사조 페이지로도 이동할 수 있습니다.</p>
+
+      <div class="jump-row">
+        <a class="jump-pill" href="#renaissance">르네상스</a>
+        <a class="jump-pill" href="#baroque">바로크</a>
+        <a class="jump-pill" href="#rococo">로코코</a>
+        <a class="jump-pill" href="#neoclassicism">신고전주의</a>
+        <a class="jump-pill" href="#romanticism">낭만주의</a>
+        <a class="jump-pill" href="#realism">사실주의</a>
+        <a class="jump-pill" href="#impressionism">인상주의</a>
+        <a class="jump-pill" href="#post-impressionism">후기 인상주의</a>
+        <a class="jump-pill" href="#fauvism">야수주의</a>
+        <a class="jump-pill" href="#cubism">입체주의</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 르네상스 -->
+  <section class="artist-section" id="renaissance">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>르네상스 <span class="orig">Renaissance</span></h2>
+        <a class="movement-link" href="movements.html#renaissance">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">이탈리아</span>
+          <h3>레오나르도 다빈치</h3>
+          <div class="years">1452–1519</div>
+          <p class="style-desc">스푸마토 기법으로 부드러운 명암을 구현한 르네상스 전성기의 만능인.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>모나리자</li><li>최후의 만찬</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">이탈리아</span>
+          <h3>미켈란젤로</h3>
+          <div class="years">1475–1564</div>
+          <p class="style-desc">인체의 역동성과 웅장한 스케일로 조각 같은 회화·조각을 남긴 거장.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>시스티나 성당 천장화</li><li>다비드상</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">이탈리아</span>
+          <h3>라파엘로</h3>
+          <div class="years">1483–1520</div>
+          <p class="style-desc">균형 잡힌 구도와 우아한 인물 표현으로 고전적 이상미를 완성.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>아테네 학당</li><li>시스티나 성모</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 바로크 -->
+  <section class="artist-section alt" id="baroque">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>바로크 <span class="orig">Baroque</span></h2>
+        <a class="movement-link" href="movements.html#baroque">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">이탈리아</span>
+          <h3>카라바조</h3>
+          <div class="years">1571–1610</div>
+          <p class="style-desc">극단적 명암 대비(테네브리즘)로 사실적이고 극적인 긴장감을 만든 선구자.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>성 마태오의 소명</li><li>유디트와 홀로페르네스</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">네덜란드</span>
+          <h3>렘브란트</h3>
+          <div class="years">1606–1669</div>
+          <p class="style-desc">깊이 있는 명암과 심리 묘사가 돋보이는 초상·자화상의 대가.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>야경</li><li>자화상 연작</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">네덜란드</span>
+          <h3>베르메르</h3>
+          <div class="years">1632–1675</div>
+          <p class="style-desc">실내의 은은한 빛과 정적인 일상을 섬세하게 포착.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>진주 귀걸이를 한 소녀</li><li>우유를 따르는 여인</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 로코코 -->
+  <section class="artist-section" id="rococo">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>로코코 <span class="orig">Rococo</span></h2>
+        <a class="movement-link" href="movements.html#rococo">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>바토</h3>
+          <div class="years">1684–1721</div>
+          <p class="style-desc">궁정 연회와 전원 유희를 그린 페트 갈랑트 장르의 창시자.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>키테라 섬으로의 순례</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>부셰</h3>
+          <div class="years">1703–1770</div>
+          <p class="style-desc">화려하고 관능적인 색채로 로코코 궁정 취향을 대표.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>퐁파두르 부인의 초상</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>프라고나르</h3>
+          <div class="years">1732–1806</div>
+          <p class="style-desc">경쾌한 붓터치와 유희적 주제로 로코코의 정수를 보여줌.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>그네</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 신고전주의 -->
+  <section class="artist-section alt" id="neoclassicism">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>신고전주의 <span class="orig">Neoclassicism</span></h2>
+        <a class="movement-link" href="movements.html#neoclassicism">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>다비드</h3>
+          <div class="years">1748–1825</div>
+          <p class="style-desc">명확한 선과 엄격한 구도로 혁명기의 도덕적 이상을 표현.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>호라티우스 형제의 맹세</li><li>나폴레옹의 대관식</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>앵그르</h3>
+          <div class="years">1780–1867</div>
+          <p class="style-desc">매끄러운 마감과 완벽한 소묘로 신고전주의 인물화를 완성.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>그랑드 오달리스크</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 낭만주의 -->
+  <section class="artist-section" id="romanticism">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>낭만주의 <span class="orig">Romanticism</span></h2>
+        <a class="movement-link" href="movements.html#romanticism">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">스페인</span>
+          <h3>고야</h3>
+          <div class="years">1746–1828</div>
+          <p class="style-desc">궁정화가에서 사회 비판적 화가로 전환해 전쟁의 참상을 고발.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>1808년 5월 3일</li><li>옷을 벗은 마하</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>제리코</h3>
+          <div class="years">1791–1824</div>
+          <p class="style-desc">실제 사건을 극적인 군상 구도로 그린 낭만주의 선구자.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>메두사호의 뗏목</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>들라크루아</h3>
+          <div class="years">1798–1863</div>
+          <p class="style-desc">강렬한 색채와 역동적 붓터치로 낭만주의를 대표.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>민중을 이끄는 자유의 여신</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 사실주의 -->
+  <section class="artist-section alt" id="realism">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>사실주의 <span class="orig">Realism</span></h2>
+        <a class="movement-link" href="movements.html#realism">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>쿠르베</h3>
+          <div class="years">1819–1877</div>
+          <p class="style-desc">"천사를 본 적 없다"며 눈에 보이는 현실만을 그린 사실주의 창시자.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>오르낭의 매장</li><li>화가의 작업실</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>밀레</h3>
+          <div class="years">1814–1875</div>
+          <p class="style-desc">농민의 노동과 일상을 존엄하게 담아낸 화가.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>이삭 줍는 사람들</li><li>만종</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 인상주의 -->
+  <section class="artist-section" id="impressionism">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>인상주의 <span class="orig">Impressionism</span></h2>
+        <a class="movement-link" href="movements.html#impressionism">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>모네</h3>
+          <div class="years">1840–1926</div>
+          <p class="style-desc">같은 대상을 시간과 빛에 따라 반복해 그리며 인상주의를 개척.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>인상, 해돋이</li><li>수련 연작</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>르누아르</h3>
+          <div class="years">1841–1919</div>
+          <p class="style-desc">따뜻한 색채와 인물의 즐거운 순간을 즐겨 그림.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>물랭 드 라 갈레트의 무도회</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>드가</h3>
+          <div class="years">1834–1917</div>
+          <p class="style-desc">무용수와 도시의 순간을 독특한 구도로 포착.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>발레 수업</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 후기 인상주의 -->
+  <section class="artist-section alt" id="post-impressionism">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>후기 인상주의 <span class="orig">Post-Impressionism</span></h2>
+        <a class="movement-link" href="movements.html#post-impressionism">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">네덜란드</span>
+          <h3>반 고흐</h3>
+          <div class="years">1853–1890</div>
+          <p class="style-desc">소용돌이치는 붓터치와 강렬한 색채로 내면을 표현.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>별이 빛나는 밤</li><li>해바라기</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>세잔</h3>
+          <div class="years">1839–1906</div>
+          <p class="style-desc">형태를 기하학적 구조로 단순화해 입체주의의 토대를 놓음.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>생트빅투아르 산 연작</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>고갱</h3>
+          <div class="years">1848–1903</div>
+          <p class="style-desc">원시적 색채와 상징적 화면으로 문명 밖의 삶을 탐구.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>타히티 해변의 여인들</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 야수주의 -->
+  <section class="artist-section" id="fauvism">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>야수주의 <span class="orig">Fauvism</span></h2>
+        <a class="movement-link" href="movements.html#fauvism">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>마티스</h3>
+          <div class="years">1869–1954</div>
+          <p class="style-desc">색채 자체를 감정과 구성의 중심에 둔 야수주의의 리더.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>삶의 기쁨</li><li>춤</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>드랭</h3>
+          <div class="years">1880–1954</div>
+          <p class="style-desc">비자연적 원색의 풍경화로 야수주의를 함께 이끔.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>런던교</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 입체주의 -->
+  <section class="artist-section alt" id="cubism">
+    <div class="wrap">
+      <div class="artist-section-head">
+        <h2>입체주의 <span class="orig">Cubism</span></h2>
+        <a class="movement-link" href="movements.html#cubism">사조 자세히 보기 →</a>
+      </div>
+      <div class="artist-grid">
+        <div class="artist-card">
+          <span class="nationality">스페인</span>
+          <h3>피카소</h3>
+          <div class="years">1881–1973</div>
+          <p class="style-desc">대상을 다시점으로 해체·재구성하며 입체주의를 공동 창시.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>아비뇽의 처녀들</li><li>게르니카</li></ul>
+        </div>
+        <div class="artist-card">
+          <span class="nationality">프랑스</span>
+          <h3>브라크</h3>
+          <div class="years">1882–1963</div>
+          <p class="style-desc">피카소와 함께 입체주의를 개발한 공동 창시자.</p>
+          <div class="works-label">대표작</div>
+          <ul class="works-list"><li>에스타크의 집들</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <p class="source-note">
+      생몰년과 대표작 정보는 위키미디어 커먼즈, 메트로폴리탄 미술관의 Heilbrunn Timeline of Art History 등 공신력 있는 일반 자료를 참고해 정리했습니다.
+      화풍 설명은 요약된 개괄이며, 화가별 개별 상세 페이지가 추가되는 대로 출처 링크를 함께 제공할 예정입니다.
+    </p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>미술의 흐름</h4>
+        <p>미술사·미술가·사조·기법을 연표와 연역도로 잇는 학습 웹앱입니다. 모든 정보는 출처를 명시합니다.</p>
+      </div>
+      <div class="footer-col">
+        <h4>탐색</h4>
+        <a href="timeline.html">미술사 연표</a>
+        <a href="artists.html">미술가</a>
+        <a href="movements.html">종파(사조)</a>
+        <a href="techniques.html">기법</a>
+      </div>
+      <div class="footer-col">
+        <h4>학습</h4>
+        <a href="quiz.html">퀴즈 풀기</a>
+        <a href="#">오답노트</a>
+        <a href="#">비교·이론 (예정)</a>
+      </div>
+      <div class="footer-col">
+        <h4>정보</h4>
+        <a href="#">이미지·자료 출처 정책</a>
+        <a href="#">콘텐츠 정확성 검증 기준</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 미술의 흐름. 모든 이미지·정보는 출처를 명시합니다.</span>
+      <span><a href="#">이용 안내</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/theme.js" defer></script>
+
+</body>
+</html>
