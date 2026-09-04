@@ -47,7 +47,9 @@
     background: var(--badge-bg);
     color: var(--badge-text);
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .02em;
   }
   .tech-card h2 { font-size: 19px; font-weight: 800; margin: 0 0 2px; letter-spacing: -0.01em; }
   .tech-card h2 .orig { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 2px; }
@@ -101,7 +103,11 @@
       <a href="quiz.html">퀴즈</a>
     </nav>
     <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">🌙</button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
       <a class="btn btn-primary" href="quiz.html">퀴즈 풀기</a>
     </div>
   </div>
@@ -134,7 +140,7 @@
 
         <div class="tech-card" id="fresco">
           <div class="tech-card-head">
-            <div class="tech-icon">🧱</div>
+            <div class="tech-icon">FR</div>
             <h2>프레스코<span class="orig">Fresco</span></h2>
           </div>
           <h3>정의</h3>
@@ -153,7 +159,7 @@
 
         <div class="tech-card" id="sfumato">
           <div class="tech-card-head">
-            <div class="tech-icon">🌫️</div>
+            <div class="tech-icon">SF</div>
             <h2>스푸마토<span class="orig">Sfumato</span></h2>
           </div>
           <h3>정의</h3>
@@ -171,7 +177,7 @@
 
         <div class="tech-card" id="tenebrism">
           <div class="tech-card-head">
-            <div class="tech-icon">🕯️</div>
+            <div class="tech-icon">TN</div>
             <h2>테네브리즘<span class="orig">Tenebrism</span></h2>
           </div>
           <h3>정의</h3>
@@ -190,7 +196,7 @@
 
         <div class="tech-card" id="oil-painting">
           <div class="tech-card-head">
-            <div class="tech-icon">🎨</div>
+            <div class="tech-icon">OP</div>
             <h2>유화<span class="orig">Oil Painting</span></h2>
           </div>
           <h3>정의</h3>
@@ -208,7 +214,7 @@
 
         <div class="tech-card" id="plein-air">
           <div class="tech-card-head">
-            <div class="tech-icon">🌤️</div>
+            <div class="tech-icon">PA</div>
             <h2>플레네르<span class="orig">Plein Air</span></h2>
           </div>
           <h3>정의</h3>
@@ -228,7 +234,7 @@
 
         <div class="tech-card" id="impasto">
           <div class="tech-card-head">
-            <div class="tech-icon">🖌️</div>
+            <div class="tech-icon">IM</div>
             <h2>임파스토<span class="orig">Impasto</span></h2>
           </div>
           <h3>정의</h3>
@@ -246,7 +252,7 @@
 
         <div class="tech-card" id="collage">
           <div class="tech-card-head">
-            <div class="tech-icon">✂️</div>
+            <div class="tech-icon">PC</div>
             <h2>파피에 콜레(콜라주)<span class="orig">Papier Collé / Collage</span></h2>
           </div>
           <h3>정의</h3>
@@ -265,7 +271,7 @@
 
         <div class="tech-card" id="fauve-color">
           <div class="tech-card-head">
-            <div class="tech-icon">🔥</div>
+            <div class="tech-icon">FC</div>
             <h2>원색의 해방<span class="orig">Non-Naturalistic Color</span></h2>
           </div>
           <h3>정의</h3>

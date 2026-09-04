@@ -108,7 +108,7 @@
       var plate = document.createElement('div');
       plate.className = 'art-plate';
       plate.innerHTML =
-        '<div class="art-plate-visual">🖼️</div>' +
+        '<div class="art-plate-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>' +
         '<div class="art-plate-title">' + q.title + '</div>' +
         '<div class="art-plate-desc">' + q.desc + '</div>';
       questionArea.appendChild(plate);

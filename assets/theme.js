@@ -7,18 +7,12 @@
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
-  function applyIcon(theme) {
-    if (!toggle) return;
-    toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-  }
-
   function setTheme(theme, persist) {
     if (theme) {
       root.setAttribute('data-theme', theme);
     } else {
       root.removeAttribute('data-theme');
     }
-    applyIcon(theme || (systemPrefersDark() ? 'dark' : 'light'));
     if (persist) {
       if (theme) {
         localStorage.setItem(STORAGE_KEY, theme);

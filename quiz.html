@@ -70,6 +70,7 @@
     transition: transform .1s ease, border-color .15s ease;
   }
   .ox-btn:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--brand); }
+  .ox-btn:active:not(:disabled) { transform: scale(.97); }
   .ox-btn:disabled { cursor: default; }
   .ox-btn.correct { border-color: var(--success); color: var(--success); background: color-mix(in srgb, var(--success) 12%, var(--surface-alt)); }
   .ox-btn.wrong { border-color: var(--error); color: var(--error); background: color-mix(in srgb, var(--error) 12%, var(--surface-alt)); }
@@ -88,6 +89,7 @@
     transition: border-color .15s ease, transform .1s ease;
   }
   .mc-btn:hover:not(:disabled) { border-color: var(--brand); transform: translateX(2px); }
+  .mc-btn:active:not(:disabled) { transform: scale(.98); }
   .mc-btn:disabled { cursor: default; }
   .mc-btn.correct { border-color: var(--success); color: var(--success); background: color-mix(in srgb, var(--success) 12%, var(--surface-alt)); }
   .mc-btn.wrong { border-color: var(--error); color: var(--error); background: color-mix(in srgb, var(--error) 12%, var(--surface-alt)); }
@@ -102,7 +104,8 @@
       radial-gradient(circle at 30% 0%, color-mix(in srgb, var(--brand) 16%, transparent), transparent 60%),
       var(--surface-alt);
   }
-  .art-plate-visual { font-size: 40px; margin-bottom: 14px; }
+  .art-plate-visual { margin-bottom: 14px; }
+  .art-plate-visual svg { width: 32px; height: 32px; margin: 0 auto; color: var(--brand-strong); display: block; }
   .art-plate-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.01em; }
   .art-plate-desc { font-size: 14px; color: var(--muted); max-width: 420px; margin: 0 auto; }
 
@@ -148,7 +151,11 @@
       <a href="quiz.html" aria-current="page">퀴즈</a>
     </nav>
     <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">🌙</button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+
       <a class="btn btn-primary" href="quiz.html">퀴즈 풀기</a>
     </div>
   </div>
