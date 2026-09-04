@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기법 — 미술의 흐름</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .jump-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .jump-pill {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .jump-pill:hover { color: var(--brand-strong); border-color: var(--brand); }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 860px) { .tech-grid { grid-template-columns: 1fr; } }
+
+  .tech-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 76px;
+  }
+
+  .tech-card-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+  .tech-icon {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .tech-card h2 { font-size: 19px; font-weight: 800; margin: 0 0 2px; letter-spacing: -0.01em; }
+  .tech-card h2 .orig { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+
+  .tech-card h3 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 18px 0 6px; }
+  .tech-card p { font-size: 14.5px; color: var(--ink); margin: 0; }
+
+  .tech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tech-chip {
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+  }
+
+  .tech-card .works-list { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); }
+  .tech-card .works-list li { margin-bottom: 4px; }
+
+  .tech-card-foot {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--link-accent);
+  }
+  .tech-card-foot a:hover { text-decoration: underline; }
+
+  .source-note {
+    max-width: 760px;
+    margin: 48px auto 0;
+    padding: 20px 24px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="dot"></span>미술의 흐름</a>
+    <nav class="nav-links">
+      <a href="timeline.html">미술사</a>
+      <a href="artists.html">미술가</a>
+      <a href="movements.html">종파</a>
+      <a href="techniques.html" aria-current="page">기법</a>
+      <a href="quiz.html">퀴즈</a>
+    </nav>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="테마 전환">🌙</button>
+      <a class="btn btn-primary" href="quiz.html">퀴즈 풀기</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <div class="wrap">
+      <div class="eyebrow">서양미술사 · 기법 8선</div>
+      <h1>사조를 만든 화가들의 손끝을 들여다보세요</h1>
+      <p>각 기법이 무엇이고 어떻게 사용되었는지, 어떤 사조·화가와 연결되는지를 정리했습니다.</p>
+
+      <div class="jump-row">
+        <a class="jump-pill" href="#fresco">프레스코</a>
+        <a class="jump-pill" href="#sfumato">스푸마토</a>
+        <a class="jump-pill" href="#tenebrism">테네브리즘</a>
+        <a class="jump-pill" href="#oil-painting">유화</a>
+        <a class="jump-pill" href="#plein-air">플레네르</a>
+        <a class="jump-pill" href="#impasto">임파스토</a>
+        <a class="jump-pill" href="#collage">파피에 콜레</a>
+        <a class="jump-pill" href="#fauve-color">원색의 해방</a>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="tech-grid">
+
+        <div class="tech-card" id="fresco">
+          <div class="tech-card-head">
+            <div class="tech-icon">🧱</div>
+            <h2>프레스코<span class="orig">Fresco</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>회반죽이 마르기 전에 안료를 벽에 직접 발라 정착시키는 벽화 기법입니다. 안료가 회반죽과 함께 굳으면서 표면에 스며들어 내구성이 뛰어납니다.</p>
+          <h3>재료·방법</h3>
+          <p>물에 갠 안료를 젖은 석회 회반죽 위에 빠르게 채색하며, 한번 마르면 수정이 어려워 사전에 밑그림(카르통)을 정확히 준비해야 합니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#renaissance">미켈란젤로</a>
+            <a class="tech-chip" href="artists.html#renaissance">라파엘로</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>시스티나 성당 천장화</li><li>아테네 학당</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#renaissance">르네상스 사조 보기 →</a></div>
+        </div>
+
+        <div class="tech-card" id="sfumato">
+          <div class="tech-card-head">
+            <div class="tech-icon">🌫️</div>
+            <h2>스푸마토<span class="orig">Sfumato</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>색과 색, 톤과 톤 사이의 경계를 뚜렷한 윤곽선 없이 안개처럼 부드럽게 흐리는 명암 처리 기법입니다.</p>
+          <h3>재료·방법</h3>
+          <p>유화 물감을 여러 겹 얇게 덧칠하며 붓 자국이 보이지 않을 정도로 섞어, 형태가 자연스럽게 배경 속으로 스며들도록 표현합니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#renaissance">레오나르도 다빈치</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>모나리자</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#renaissance">르네상스 사조 보기 →</a></div>
+        </div>
+
+        <div class="tech-card" id="tenebrism">
+          <div class="tech-card-head">
+            <div class="tech-icon">🕯️</div>
+            <h2>테네브리즘<span class="orig">Tenebrism</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>화면의 대부분을 어둡게 처리하고 일부에만 강한 빛을 비춰 극적인 명암 대비를 만드는 기법으로, 키아로스쿠로를 더 극단으로 밀어붙인 형태입니다.</p>
+          <h3>재료·방법</h3>
+          <p>단일 광원을 상정해 인물이나 사물의 일부만 밝게 드러내고 나머지는 어둠에 묻어, 장면의 긴장감과 연극성을 높입니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#baroque">카라바조</a>
+            <a class="tech-chip" href="artists.html#baroque">렘브란트</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>성 마태오의 소명</li><li>야경</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#baroque">바로크 사조 보기 →</a></div>
+        </div>
+
+        <div class="tech-card" id="oil-painting">
+          <div class="tech-card-head">
+            <div class="tech-icon">🎨</div>
+            <h2>유화<span class="orig">Oil Painting</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>안료를 건성유(주로 아마인유)에 섞어 만든 물감으로 그리는 기법으로, 마르는 속도가 느려 색을 섞고 수정하기 용이해 15세기 이후 서양 회화의 기본 매체가 되었습니다.</p>
+          <h3>재료·방법</h3>
+          <p>캔버스나 나무 패널 위에 여러 겹을 덧칠하며, 얇게 칠하는 글레이징부터 두껍게 쌓아 올리는 방식까지 폭넓은 질감 표현이 가능합니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#baroque">베르메르</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>진주 귀걸이를 한 소녀</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#baroque">바로크 사조 보기 →</a></div>
+        </div>
+
+        <div class="tech-card" id="plein-air">
+          <div class="tech-card-head">
+            <div class="tech-icon">🌤️</div>
+            <h2>플레네르<span class="orig">Plein Air</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>화실이 아닌 야외에서 직접 대상을 관찰하며 그리는 외광 회화 기법으로, 시시각각 변하는 빛과 대기의 인상을 즉각적으로 포착합니다.</p>
+          <h3>재료·방법</h3>
+          <p>휴대용 이젤과 19세기에 등장한 튜브 물감 덕분에 야외 작업이 가능해졌으며, 짧고 빠른 붓터치로 순간의 색과 빛을 기록합니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#impressionism">모네</a>
+            <a class="tech-chip" href="artists.html#impressionism">르누아르</a>
+            <a class="tech-chip" href="artists.html#impressionism">드가</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>인상, 해돋이</li><li>수련 연작</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#impressionism">인상주의 사조 보기 →</a></div>
+        </div>
+
+        <div class="tech-card" id="impasto">
+          <div class="tech-card-head">
+            <div class="tech-icon">🖌️</div>
+            <h2>임파스토<span class="orig">Impasto</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>물감을 두껍게 쌓아 올려 화면에 실제 요철과 질감을 만드는 기법으로, 붓이나 팔레트 나이프의 움직임이 그대로 화면에 남습니다.</p>
+          <h3>재료·방법</h3>
+          <p>희석하지 않은 유화 물감을 두껍게 덧발라 빛이 표면의 굴곡에 반사되도록 하며, 격정적인 붓터치 자체가 감정 표현의 도구가 됩니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#post-impressionism">반 고흐</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>별이 빛나는 밤</li><li>해바라기</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#post-impressionism">후기 인상주의 사조 보기 →</a></div>
+        </div>
+
+        <div class="tech-card" id="collage">
+          <div class="tech-card-head">
+            <div class="tech-icon">✂️</div>
+            <h2>파피에 콜레(콜라주)<span class="orig">Papier Collé / Collage</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>신문지, 벽지, 악보 등 실제 종이 재료를 화면에 오려 붙여 그림의 일부로 통합하는 기법으로, 회화와 실제 사물의 경계를 허물었습니다.</p>
+          <h3>재료·방법</h3>
+          <p>인쇄물이나 색지를 오려 캔버스에 붙인 뒤 목탄이나 유화로 나머지 형태를 그려 넣어, 여러 시점과 재질이 한 화면에 공존하도록 구성합니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#cubism">피카소</a>
+            <a class="tech-chip" href="artists.html#cubism">브라크</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>아비뇽의 처녀들</li><li>에스타크의 집들</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#cubism">입체주의 사조 보기 →</a></div>
+        </div>
+
+        <div class="tech-card" id="fauve-color">
+          <div class="tech-card-head">
+            <div class="tech-icon">🔥</div>
+            <h2>원색의 해방<span class="orig">Non-Naturalistic Color</span></h2>
+          </div>
+          <h3>정의</h3>
+          <p>사물의 실제 색을 재현하는 대신, 튜브에서 짜낸 원색을 그대로 나란히 배치해 감정과 구성의 리듬을 표현하는 색채 사용 방식입니다.</p>
+          <h3>재료·방법</h3>
+          <p>혼색을 최소화한 강렬한 원색 물감을 넓은 면으로 칠하고, 색상 대비만으로 공간감과 긴장감을 만들어 형태의 사실적 묘사에서 벗어납니다.</p>
+          <h3>관련 화가</h3>
+          <div class="tech-chips">
+            <a class="tech-chip" href="artists.html#fauvism">마티스</a>
+            <a class="tech-chip" href="artists.html#fauvism">드랭</a>
+          </div>
+          <h3>대표 작품</h3>
+          <ul class="works-list"><li>삶의 기쁨</li><li>춤</li></ul>
+          <div class="tech-card-foot"><a href="movements.html#fauvism">야수주의 사조 보기 →</a></div>
+        </div>
+
+      </div>
+
+      <p class="source-note">
+        기법 설명은 위키미디어 커먼즈, 메트로폴리탄 미술관의 Heilbrunn Timeline of Art History 등 공신력 있는 일반 자료를 참고해 요약했습니다.
+        기법별 상세 페이지와 재료 이미지는 Phase 2에서 확장될 예정입니다.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>미술의 흐름</h4>
+        <p>미술사·미술가·사조·기법을 연표와 연역도로 잇는 학습 웹앱입니다. 모든 정보는 출처를 명시합니다.</p>
+      </div>
+      <div class="footer-col">
+        <h4>탐색</h4>
+        <a href="timeline.html">미술사 연표</a>
+        <a href="artists.html">미술가</a>
+        <a href="movements.html">종파(사조)</a>
+        <a href="techniques.html">기법</a>
+      </div>
+      <div class="footer-col">
+        <h4>학습</h4>
+        <a href="quiz.html">퀴즈 풀기</a>
+        <a href="#">오답노트</a>
+        <a href="#">비교·이론 (예정)</a>
+      </div>
+      <div class="footer-col">
+        <h4>정보</h4>
+        <a href="#">이미지·자료 출처 정책</a>
+        <a href="#">콘텐츠 정확성 검증 기준</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 미술의 흐름. 모든 이미지·정보는 출처를 명시합니다.</span>
+      <span><a href="#">이용 안내</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/theme.js" defer></script>
+
+</body>
+</html>
